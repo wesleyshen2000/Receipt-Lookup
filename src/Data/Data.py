@@ -1,0 +1,1 @@
+#Pull the data from the receipt and organize it by item: quantity
