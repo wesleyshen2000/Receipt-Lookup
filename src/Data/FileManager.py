@@ -1,5 +1,7 @@
 import os
-class FileManager:
+from src.Abs.AbsFileManager import InterfaceFileManager
+
+class FileManager(InterfaceFileManager):
     """
     Manages files and directories
     """
