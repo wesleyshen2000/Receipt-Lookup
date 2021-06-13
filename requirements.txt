@@ -2,6 +2,3 @@
 
 # C:\Users\Leon\Documents\Code Projects\Receipt-Lookup\src\Data\Data.py: 2
 requests == 2.25.1
-
-# C:\Users\Leon\Documents\Code Projects\Receipt-Lookup\src\Data\FileManager.py: 2
-src == 0.0.7

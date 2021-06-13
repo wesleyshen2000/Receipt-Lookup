@@ -1,11 +1,15 @@
 #Pull the data from the receipt and organize it by item: quantity
+import os
+
 import requests
 import json
+    
 from FileManager import FileManager
 class Data:
     def __init__(self):
         self.fm = FileManager()
         self.tmp_path = "../../tmp/"
+        print(os.getcwd())
 
     def read_file(self):
             """
