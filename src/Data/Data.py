@@ -4,7 +4,7 @@ import json
     
 from FileManager import FileManager
 from src.Constants.FileLocationConstants import FolderLocationConstants
-
+from src.Util.ConfigUtil import ConfigUtil
 
 class Data:
     def __init__(self):
@@ -16,11 +16,8 @@ class Data:
         with open('../../config/config.txt') as f:
             for line in f:
                 if line[0] != '#':
-                    line = line.replace(':','')
-                    line = line.rstrip('\n')
-                    result = line.split(' ')
-                    param[result[0]] = result[1]
-
+                    key,val = ConfigUtil.getValue(line)
+                    param[key] = val
         return param
 
     def create_request(self):
@@ -38,9 +35,11 @@ class Data:
             print("TMP Folder already exists")
 
         #Walmart Request
+        #TODO: Error handling for bad response
         url = 'https://www.walmart.com/chcwebapp/api/receipts'
         response = requests.post(url,data=data).text
         response_dict = json.loads(response)
+        print(response_dict)
         items = response_dict['receipts'][0]['items'] #Finds the items category
         results = {}
         for item in items:
