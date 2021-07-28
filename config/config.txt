@@ -1,0 +1,8 @@
+####FOLLOW THIS FORMAT####
+#<param>:_<result> <---- make sure there is a space
+#param type is based off the request headers
+cardType: 
+lastFourDigits: 
+purchaseDate: 
+storeId: 
+total:
