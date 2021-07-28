@@ -129,5 +129,5 @@ dmypy.json
 .pyre/
 
 #Personal Files
-config/
+config/*.txt
 .png
