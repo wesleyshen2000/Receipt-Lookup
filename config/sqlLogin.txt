@@ -1,0 +1,4 @@
+#Fill with proper credentials to log into database
+user: 
+password: 
+host: 
