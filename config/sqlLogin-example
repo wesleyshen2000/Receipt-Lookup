@@ -1,4 +1,4 @@
-#Create a file named sqlLogin.txt and fill in the information
+#Create a file named sqlLogin.txt in config/ and fill in the information
 #Fill with proper credentials to log into database
 user: 
 password: 
