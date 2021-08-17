@@ -8,10 +8,11 @@ from src.Util.ConfigUtil import ConfigUtil
 
 class Data:
     def __init__(self):
-        self.fm = FileManager()
+        self.__fileManager = FileManager()
         self.tmp_path = FolderLocationConstants().get_temp_folder()
 
-    def read_config_file(self):
+
+    def __read_config_file(self):
         param = {}
         with open('../../config/config.txt') as f:
             for line in f:
@@ -26,11 +27,11 @@ class Data:
         :return: All the items bought from Walmart
         :rtype: dict
         """
-        data = self.read_config_file()
+        data = self.__read_config_file()
 
         #Check if tmp folder is created, if not create folder
         try:
-            self.fm.create_folder(self.tmp_path)
+            self.__fileManager.create_folder(self.tmp_path)
         except FileExistsError:
             print("TMP Folder already exists")
 
@@ -39,7 +40,7 @@ class Data:
         url = 'https://www.walmart.com/chcwebapp/api/receipts'
         response = requests.post(url,data=data).text
         response_dict = json.loads(response)
-        print(response_dict)
+
         items = response_dict['receipts'][0]['items'] #Finds the items category
         results = {}
         for item in items:
@@ -53,17 +54,23 @@ class Data:
                 results[item['upc']]['quantity']= item['quantity']
 
                 #Download image
-                try:
-                    #results[item['upc']]['imageUrl'] = item['imageUrl']
-                    self.download_image(item['imageUrl'],self.tmp_path+item['description']+".png")
-                except:
-                    results[item['upc']]['imageUrl'] = None
+                self.__download_image(item['imageUrl'],self.tmp_path+item['description']+".png")
 
-    def download_image(self,url,path):
-        if not self.fm.file_exist(path):
-            file = open(path,'wb')
-            response = requests.get(url)
-            file.write(response.content)
+
+
+    def __download_image(self,url: str ,path: str):
+        """
+        Create an image file based off URL and download it into the folder PATH
+        """
+        if not self.__fileManager.file_exist(path):
+
+            try:
+                file = open(path,'wb')
+                response = requests.get(url)
+                file.write(response.content)
+            except requests.exceptions.RequestException as e:
+                print("Error downloading image with url: " + url)
+                print("Error Code: " + e.strerror)
         else:
             print("{} already exists".format(path))
 test = Data()
